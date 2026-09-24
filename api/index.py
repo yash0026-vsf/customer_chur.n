@@ -1,46 +1,44 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-import joblib
-import numpy as np
-import os
+import math
 
 app = Flask(__name__)
 # Enable CORS for all domains on all routes
 CORS(app)
 
-# Load the trained model
-model_path = os.path.join(os.path.dirname(__file__), "model.pkl")
-
-# We will load the model lazily or at startup if it exists
-model = None
-if os.path.exists(model_path):
-    model = joblib.load(model_path)
-else:
-    print("Warning: model.pkl not found. Please run train_model.py first.")
+# The original training data
+data = [
+    {"age": 30, "charge": 50, "churn": 0},
+    {"age": 25, "charge": 60, "churn": 1},
+    {"age": 35, "charge": 80, "churn": 0},
+    {"age": 20, "charge": 40, "churn": 1},
+    {"age": 40, "charge": 100, "churn": 0},
+    {"age": 55, "charge": 120, "churn": 1},
+    {"age": 32, "charge": 70, "churn": 0},
+    {"age": 28, "charge": 55, "churn": 1}
+]
 
 @app.route('/api/index', methods=['POST', 'GET'])
 def predict():
-    global model
-    if model is None:
-        if os.path.exists(model_path):
-            model = joblib.load(model_path)
-        else:
-            return jsonify({"error": "Model not trained yet."}), 500
-
     try:
-        data = request.json
-        age = float(data.get("age", 0))
-        monthly_charges = float(data.get("monthly_charges", 0))
+        req_data = request.json or {}
+        user_age = float(req_data.get("age", 0))
+        user_charge = float(req_data.get("monthly_charges", 0))
 
-        # The model expects a 2D array
-        user_input = np.array([[age, monthly_charges]])
-        prediction = model.predict(user_input)
+        # Pure Python 1-Nearest Neighbor (matches the dataset perfectly)
+        best_dist = float('inf')
+        prediction = 0
+        
+        for row in data:
+            dist = math.sqrt((user_age - row["age"])**2 + (user_charge - row["charge"])**2)
+            if dist < best_dist:
+                best_dist = dist
+                prediction = row["churn"]
 
-        result = int(prediction[0])
-        message = "The customer is likely to stay." if result == 0 else "The customer is at risk of churning."
+        message = "The customer is likely to stay." if prediction == 0 else "The customer is at risk of churning."
         
         return jsonify({
-            "prediction": result,
+            "prediction": prediction,
             "message": message
         })
 
