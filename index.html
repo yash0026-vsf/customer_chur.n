@@ -4,28 +4,47 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Customer Churn Predictor</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <div class="background-shape shape-1"></div>
+    <div class="background-shape shape-2"></div>
+    
     <div class="container">
-        <h1>Customer Churn Predictor</h1>
-        <p>Enter customer details below to predict whether they are at risk of leaving.</p>
+        <div class="header">
+            <div class="icon">📊</div>
+            <h1>Churn Predictor</h1>
+            <p>Enter customer details below to predict their risk of leaving.</p>
+        </div>
         
         <form id="prediction-form">
             <div class="form-group">
-                <label for="age">Customer Age:</label>
-                <input type="number" id="age" name="age" required min="18" max="120" placeholder="e.g., 28">
+                <label for="age">Customer Age</label>
+                <div class="input-wrapper">
+                    <span class="prefix">👤</span>
+                    <input type="number" id="age" name="age" required min="18" max="120" placeholder="e.g., 28">
+                </div>
             </div>
             
             <div class="form-group">
-                <label for="monthly_charges">Monthly Charges ($):</label>
-                <input type="number" id="monthly_charges" name="monthly_charges" required min="0" step="0.01" placeholder="e.g., 65.50">
+                <label for="monthly_charges">Monthly Charges</label>
+                <div class="input-wrapper">
+                    <span class="prefix">₹</span>
+                    <input type="number" id="monthly_charges" name="monthly_charges" required min="0" step="0.01" placeholder="e.g., 1500">
+                </div>
             </div>
             
-            <button type="submit" id="submit-btn">Predict Churn</button>
+            <button type="submit" id="submit-btn">
+                <span>Predict Churn</span>
+                <svg class="arrow" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+                </svg>
+            </button>
         </form>
 
         <div id="result-container" class="hidden">
+            <div class="result-icon" id="result-icon"></div>
             <h2 id="result-text"></h2>
         </div>
         

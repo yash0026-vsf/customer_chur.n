@@ -37,7 +37,14 @@ document.getElementById('prediction-form').addEventListener('submit', async func
         
         // Show result
         resultText.textContent = data.message;
-        resultContainer.className = data.prediction === 0 ? 'stay' : 'churn';
+        
+        if (data.prediction === 0) {
+            resultContainer.className = 'stay';
+            document.getElementById('result-icon').textContent = '✅';
+        } else {
+            resultContainer.className = 'churn';
+            document.getElementById('result-icon').textContent = '⚠️';
+        }
         
     } catch (error) {
         // Show error
