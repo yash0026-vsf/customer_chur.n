@@ -18,7 +18,7 @@ if os.path.exists(model_path):
 else:
     print("Warning: model.pkl not found. Please run train_model.py first.")
 
-@app.route('/predict', methods=['POST'])
+@app.route('/api/index', methods=['POST', 'GET'])
 def predict():
     global model
     if model is None:
