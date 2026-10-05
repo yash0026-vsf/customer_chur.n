@@ -13,7 +13,7 @@ This project contains a web application for predicting customer churn using a Su
   - `style.css`: Styling for the interface.
   - `script.js`: Logic to send user input to the backend API.
 
-## How to Run Locally
+......## How to Run Locally
 
 ### 1. Set up the Backend
 1. Open a terminal and navigate to the `backend` folder.
