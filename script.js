@@ -1,7 +1,7 @@
 document.getElementById('prediction-form').addEventListener('submit', async function(e) {
     e.preventDefault();
     
-    const age = document.getElementById('age').value;
+    const age = document.getElementById('age').value;    
     const monthlyCharges = document.getElementById('monthly_charges').value;
     
     const submitBtn = document.getElementById('submit-btn');
