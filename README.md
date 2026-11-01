@@ -17,7 +17,7 @@ This project contains a web application for predicting customer churn using a Su
 
 ### 1. Set up the Backend
 1. Open a terminal and navigate to the `backend` folder.
-2. Install the required dependencies:
+2. Install the required dependencies:  
    ```bash
    pip install -r requirements.txt
    ```
